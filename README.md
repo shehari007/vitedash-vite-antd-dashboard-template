@@ -32,7 +32,7 @@
 
 ## 🔗 Live Demo
 
-[Add your live demo link here]
+[https://vitedash.msyb.dev]
 
 ## 🛠️ Tech Stack
 
