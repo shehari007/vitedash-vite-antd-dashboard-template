@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Row,
   Col,
@@ -12,7 +11,11 @@ import {
   Avatar,
   List,
   Timeline,
+  Calendar,
+  Button,
+  Divider,
 } from 'antd';
+import SectionLabel from '../../components/SectionLabel';
 import {
   UserOutlined,
   ShoppingCartOutlined,
@@ -23,133 +26,133 @@ import {
   CheckCircleOutlined,
   ClockCircleOutlined,
   SyncOutlined,
+  DatabaseOutlined,
+  ThunderboltOutlined,
+  PlusOutlined,
+  FileTextOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
+const recentOrders = [
+  {
+    key: '1',
+    order: '#ORD-001',
+    customer: 'John Doe',
+    date: '2026-06-28',
+    amount: '$250.00',
+    status: 'completed',
+  },
+  {
+    key: '2',
+    order: '#ORD-002',
+    customer: 'Jane Smith',
+    date: '2026-06-27',
+    amount: '$180.00',
+    status: 'pending',
+  },
+  {
+    key: '3',
+    order: '#ORD-003',
+    customer: 'Bob Johnson',
+    date: '2026-06-27',
+    amount: '$320.00',
+    status: 'processing',
+  },
+  {
+    key: '4',
+    order: '#ORD-004',
+    customer: 'Alice Brown',
+    date: '2026-06-26',
+    amount: '$95.00',
+    status: 'completed',
+  },
+];
+
+const orderColumns = [
+  { title: 'Order', dataIndex: 'order', key: 'order' },
+  { title: 'Customer', dataIndex: 'customer', key: 'customer' },
+  { title: 'Date', dataIndex: 'date', key: 'date', responsive: ['md'] },
+  { title: 'Amount', dataIndex: 'amount', key: 'amount' },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (status) => {
+      const statusConfig = {
+        completed: { color: 'success', icon: <CheckCircleOutlined /> },
+        pending: { color: 'warning', icon: <ClockCircleOutlined /> },
+        processing: { color: 'processing', icon: <SyncOutlined spin /> },
+      };
+      const config = statusConfig[status];
+      return (
+        <Tag icon={config.icon} color={config.color}>
+          {status.toUpperCase()}
+        </Tag>
+      );
+    },
+  },
+];
+
+const activityEvents = [
+  { color: 'green', event: 'Order #ORD-001 has been delivered', time: '15 minutes ago' },
+  { color: 'blue', event: 'John Doe created a new account', time: '32 minutes ago' },
+  { color: 'gray', event: '$520.00 payment processed', time: '1 hour ago' },
+  { color: 'red', event: 'Server CPU spiked to 92%', time: '2 hours ago' },
+  { color: 'green', event: '5-star review received from Alice', time: '3 hours ago' },
+];
+
+const teamMembers = [
+  { name: 'Emma Wilson', role: 'Product Designer', progress: 92 },
+  { name: 'Liam Carter', role: 'Frontend Engineer', progress: 78 },
+  { name: 'Olivia Chen', role: 'Backend Engineer', progress: 64 },
+  { name: 'Noah Patel', role: 'QA Engineer', progress: 55 },
+];
+
+const taskList = [
+  { title: 'Finalize Q3 marketing plan', due: 'Due tomorrow', percent: 80 },
+  { title: 'Ship dashboard redesign', due: 'Due in 3 days', percent: 45 },
+  { title: 'Review onboarding flow', due: 'Due in 5 days', percent: 20 },
+  { title: 'Prepare investor deck', due: 'Due next week', percent: 10 },
+];
+
 const Home = () => {
-  // Sample data for the table
-  const recentOrders = [
-    {
-      key: '1',
-      order: '#ORD-001',
-      customer: 'John Doe',
-      date: '2024-01-15',
-      amount: '$250.00',
-      status: 'completed',
-    },
-    {
-      key: '2',
-      order: '#ORD-002',
-      customer: 'Jane Smith',
-      date: '2024-01-14',
-      amount: '$180.00',
-      status: 'pending',
-    },
-    {
-      key: '3',
-      order: '#ORD-003',
-      customer: 'Bob Johnson',
-      date: '2024-01-14',
-      amount: '$320.00',
-      status: 'processing',
-    },
-    {
-      key: '4',
-      order: '#ORD-004',
-      customer: 'Alice Brown',
-      date: '2024-01-13',
-      amount: '$95.00',
-      status: 'completed',
-    },
-  ];
-
-  const columns = [
-    {
-      title: 'Order',
-      dataIndex: 'order',
-      key: 'order',
-    },
-    {
-      title: 'Customer',
-      dataIndex: 'customer',
-      key: 'customer',
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-      responsive: ['md'],
-    },
-    {
-      title: 'Amount',
-      dataIndex: 'amount',
-      key: 'amount',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => {
-        const statusConfig = {
-          completed: { color: 'success', icon: <CheckCircleOutlined /> },
-          pending: { color: 'warning', icon: <ClockCircleOutlined /> },
-          processing: { color: 'processing', icon: <SyncOutlined spin /> },
-        };
-        const config = statusConfig[status];
-        return (
-          <Tag icon={config.icon} color={config.color}>
-            {status.toUpperCase()}
-          </Tag>
-        );
-      },
-    },
-  ];
-
-  const recentActivities = [
-    {
-      title: 'New user registered',
-      description: 'John Doe created a new account',
-      time: '2 minutes ago',
-    },
-    {
-      title: 'Order completed',
-      description: 'Order #ORD-001 has been delivered',
-      time: '15 minutes ago',
-    },
-    {
-      title: 'Payment received',
-      description: '$520.00 payment processed',
-      time: '1 hour ago',
-    },
-    {
-      title: 'New review',
-      description: '5-star rating from Alice',
-      time: '3 hours ago',
-    },
-  ];
-
   return (
-    <div style={{ padding: '0' }}>
-      <Title level={4} style={{ marginBottom: 24 }}>
-        Dashboard Overview
-      </Title>
+    <div>
+      <Row justify="space-between" align="middle" style={{ marginBottom: 24 }} gutter={[16, 16]}>
+        <Col>
+          <Title level={4} style={{ marginBottom: 4 }}>
+            Dashboard Overview
+          </Title>
+          <Text type="secondary">Welcome back, here is what is happening today.</Text>
+        </Col>
+        <Col>
+          <Space wrap>
+            <Button icon={<FileTextOutlined />}>Export Report</Button>
+            <Button type="primary" icon={<PlusOutlined />}>
+              New Order
+            </Button>
+          </Space>
+        </Col>
+      </Row>
 
-      {/* Stats Cards */}
+      <SectionLabel style={{ marginTop: 0 }}>Overview</SectionLabel>
+
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} lg={6}>
           <Card hoverable>
             <Statistic
               title="Total Users"
               value={2847}
-              prefix={<UserOutlined style={{ color: '#1890ff' }} />}
+              prefix={<UserOutlined style={{ color: '#1677ff' }} />}
               suffix={
                 <Text type="success" style={{ fontSize: 14 }}>
                   <ArrowUpOutlined /> 12%
                 </Text>
               }
             />
-            <Progress percent={75} showInfo={false} strokeColor="#1890ff" />
+            <Progress percent={75} showInfo={false} strokeColor="#1677ff" />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
@@ -197,12 +200,75 @@ const Home = () => {
         </Col>
       </Row>
 
-      {/* Tables and Lists */}
-      <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+      <SectionLabel>System Health</SectionLabel>
+
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={8}>
+          <Card>
+            <Space align="center" size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
+              <Space direction="vertical" size={0}>
+                <Text type="secondary">Server Load</Text>
+                <Text strong style={{ fontSize: 20 }}>
+                  Healthy
+                </Text>
+              </Space>
+              <Progress
+                type="dashboard"
+                percent={64}
+                size={72}
+                strokeColor="#1677ff"
+                format={(percent) => `${percent}%`}
+              />
+            </Space>
+          </Card>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Card>
+            <Space align="center" size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
+              <Space direction="vertical" size={0}>
+                <Text type="secondary">Storage Used</Text>
+                <Text strong style={{ fontSize: 20 }}>
+                  <DatabaseOutlined /> 318 GB
+                </Text>
+              </Space>
+              <Progress
+                type="dashboard"
+                percent={38}
+                size={72}
+                strokeColor="#52c41a"
+                format={(percent) => `${percent}%`}
+              />
+            </Space>
+          </Card>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Card>
+            <Space align="center" size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
+              <Space direction="vertical" size={0}>
+                <Text type="secondary">API Uptime</Text>
+                <Text strong style={{ fontSize: 20 }}>
+                  <ThunderboltOutlined /> 99.9%
+                </Text>
+              </Space>
+              <Progress
+                type="dashboard"
+                percent={99}
+                size={72}
+                strokeColor="#eb2f96"
+                format={(percent) => `${percent}%`}
+              />
+            </Space>
+          </Card>
+        </Col>
+      </Row>
+
+      <SectionLabel>Orders and Activity</SectionLabel>
+
+      <Row gutter={[16, 16]}>
         <Col xs={24} lg={16}>
-          <Card title="Recent Orders" extra={<a href="#">View All</a>}>
+          <Card title="Recent Orders" extra={<a href="#recent-orders">View All</a>}>
             <Table
-              columns={columns}
+              columns={orderColumns}
               dataSource={recentOrders}
               pagination={false}
               size="small"
@@ -211,44 +277,91 @@ const Home = () => {
           </Card>
         </Col>
         <Col xs={24} lg={8}>
-          <Card title="Recent Activity">
-            <List
-              itemLayout="horizontal"
-              dataSource={recentActivities}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title={item.title}
-                    description={
-                      <Space direction="vertical" size={0}>
-                        <Text type="secondary" style={{ fontSize: 12 }}>
-                          {item.description}
-                        </Text>
-                        <Text type="secondary" style={{ fontSize: 11 }}>
-                          {item.time}
-                        </Text>
-                      </Space>
-                    }
-                  />
-                </List.Item>
-              )}
+          <Card title="Recent Activity" style={{ height: '100%' }}>
+            <Timeline
+              items={activityEvents.map((item) => ({
+                color: item.color,
+                children: (
+                  <Space direction="vertical" size={0}>
+                    <Text>{item.event}</Text>
+                    <Text type="secondary" style={{ fontSize: 12 }}>
+                      {item.time}
+                    </Text>
+                  </Space>
+                ),
+              }))}
             />
           </Card>
         </Col>
       </Row>
 
-      {/* Welcome Message */}
+      <SectionLabel>Team and Schedule</SectionLabel>
+
+      <Row gutter={[16, 16]}>
+        <Col xs={24} lg={8}>
+          <Card title={<Space><TeamOutlined /> Team Performance</Space>}>
+            <List
+              itemLayout="horizontal"
+              dataSource={teamMembers}
+              renderItem={(member) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar icon={<UserOutlined />} />}
+                    title={member.name}
+                    description={member.role}
+                  />
+                  <Progress percent={member.progress} size="small" style={{ width: 96 }} />
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Col>
+        <Col xs={24} lg={8}>
+          <Card title="Task Progress">
+            <List
+              itemLayout="vertical"
+              dataSource={taskList}
+              renderItem={(task) => (
+                <List.Item style={{ padding: '10px 0' }}>
+                  <Space direction="vertical" size={4} style={{ width: '100%' }}>
+                    <Space style={{ width: '100%', justifyContent: 'space-between' }}>
+                      <Text strong>{task.title}</Text>
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        {task.due}
+                      </Text>
+                    </Space>
+                    <Progress percent={task.percent} size="small" />
+                  </Space>
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Col>
+        <Col xs={24} lg={8}>
+          <Card title="Schedule" styles={{ body: { padding: '0 12px 12px' } }}>
+            <Calendar fullscreen={false} />
+          </Card>
+        </Col>
+      </Row>
+
       <Row style={{ marginTop: 24 }}>
         <Col span={24}>
           <Card>
-            <Space direction="vertical">
-              <Title level={5}>Welcome to your Admin Dashboard! 🎉</Title>
+            <Space direction="vertical" size={8} style={{ width: '100%' }}>
+              <Title level={5} style={{ margin: 0 }}>
+                Welcome to ViteDash
+              </Title>
               <Text type="secondary">
-                This template is built with React 19, Vite 7, and Ant Design 6.
-                It includes responsive layouts, authentication, and a clean
-                component structure to help you get started quickly.
+                {
+                  "ViteDash is built with React 19, Vite 8, and Ant Design 6. It includes responsive layouts, a system-wide light/dark theme powered by Ant Design's ConfigProvider, authentication, and a growing set of starter pages."
+                }
               </Text>
+              <Divider style={{ margin: '8px 0' }} />
+              <Space wrap>
+                <Button type="primary">Explore Tables</Button>
+                <Button>View Forms</Button>
+                <Button>Manage Users</Button>
+              </Space>
             </Space>
           </Card>
         </Col>

@@ -1,16 +1,20 @@
-import React from 'react';
 import { Layout, Drawer } from 'antd';
 import LayoutLogo from './LayoutLogo';
 import LayoutMenu from './LayoutMenu';
+import LayoutUserCard from './LayoutUserCard';
+import { SIDER_BG } from '../context/theme-mode-context';
 
 const { Sider } = Layout;
 
 const LayoutSidebar = ({ collapsed, isMobile, mobileDrawerOpen, onClose }) => {
   const siderContent = (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <LayoutLogo collapsed={collapsed && !isMobile} />
-      <LayoutMenu onItemClick={isMobile ? onClose : undefined} />
-    </>
+      <div style={{ flex: '1 1 auto', overflowY: 'auto', overflowX: 'hidden' }}>
+        <LayoutMenu onItemClick={isMobile ? onClose : undefined} />
+      </div>
+      <LayoutUserCard collapsed={collapsed && !isMobile} />
+    </div>
   );
 
   if (isMobile) {
@@ -24,7 +28,7 @@ const LayoutSidebar = ({ collapsed, isMobile, mobileDrawerOpen, onClose }) => {
         styles={{
           body: {
             padding: 0,
-            background: '#001529',
+            background: SIDER_BG,
           },
         }}
       >
@@ -39,7 +43,7 @@ const LayoutSidebar = ({ collapsed, isMobile, mobileDrawerOpen, onClose }) => {
       collapsible
       collapsed={collapsed}
       style={{
-        overflow: 'auto',
+        overflow: 'hidden',
         height: '100vh',
         position: 'fixed',
         left: 0,

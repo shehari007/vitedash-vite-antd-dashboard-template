@@ -1,32 +1,75 @@
-import React from 'react';
-import { Layout, Typography, Space } from 'antd';
-import { HeartFilled, GithubOutlined } from '@ant-design/icons';
+import { Layout, Typography, Space, Button, Tooltip, theme } from 'antd';
+import { GithubOutlined, MailOutlined, ReadOutlined } from '@ant-design/icons';
+import logoIcon from '../assets/logo/logo-icon.png';
 
 const { Footer } = Layout;
-const { Link, Text } = Typography;
+const { Text } = Typography;
+
+const links = [
+  {
+    key: 'mail',
+    label: 'Email',
+    href: 'mailto:shehariyar@gmail.com',
+    icon: <MailOutlined />,
+    color: '#1677ff',
+  },
+  {
+    key: 'docs',
+    label: 'Ant Design Docs',
+    href: 'https://ant.design/docs/react/introduce',
+    icon: <ReadOutlined />,
+    color: '#13c2c2',
+    external: true,
+  },
+  {
+    key: 'github',
+    label: 'GitHub',
+    href: 'https://github.com/shehari007',
+    icon: <GithubOutlined />,
+    color: '#722ed1',
+    external: true,
+  },
+];
 
 const LayoutFooter = () => {
+  const {
+    token: { colorBorderSecondary },
+  } = theme.useToken();
+
   return (
     <Footer
       style={{
-        textAlign: 'center',
-        padding: '16px 24px',
+        padding: '14px 24px',
         background: 'transparent',
+        borderTop: `1px solid ${colorBorderSecondary}`,
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 8,
       }}
     >
-      <Space direction="vertical" size={4}>
-        <Text type="secondary">
-          Vite + React 19 + Ant Design 6 Admin Dashboard Template
-        </Text>
-        <Text type="secondary">
-          Made with <HeartFilled style={{ color: '#eb2f96' }} /> by{' '}
-          <Link href="https://github.com/shehari007" target="_blank">
-            <GithubOutlined /> Muhammad Sheharyar Butt
-          </Link>
-        </Text>
+      <Space size={8}>
+        <img src={logoIcon} alt="ViteDash" width={18} height={18} style={{ display: 'block' }} />
         <Text type="secondary" style={{ fontSize: 12 }}>
-          © {new Date().getFullYear()} All rights reserved.
+          © {new Date().getFullYear()} ViteDash. Built by Muhammad Sheharyar Butt.
         </Text>
+      </Space>
+
+      <Space size={4}>
+        {links.map((link) => (
+          <Tooltip key={link.key} title={link.label}>
+            <Button
+              type="text"
+              shape="circle"
+              size="small"
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              icon={link.icon}
+              style={{ color: link.color }}
+            />
+          </Tooltip>
+        ))}
       </Space>
     </Footer>
   );

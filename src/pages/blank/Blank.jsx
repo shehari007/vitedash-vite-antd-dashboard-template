@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Typography, Empty, Button, Space } from 'antd';
 import { PlusOutlined, FileAddOutlined } from '@ant-design/icons';
 

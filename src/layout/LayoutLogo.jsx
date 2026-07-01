@@ -1,41 +1,45 @@
-import { Image, Typography } from 'antd';
-import React from 'react';
-
-const { Title } = Typography;
+import logoIcon from '../assets/logo/logo-icon.png';
 
 const LayoutLogo = ({ collapsed }) => {
   return (
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: collapsed ? 'center' : 'flex-start',
         height: 64,
-        padding: collapsed ? '16px 8px' : '16px',
+        flexShrink: 0,
+        padding: collapsed ? '0' : '0 16px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-        gap: 8,
+        gap: 12,
       }}
     >
-      <Image
-        src="/vite.svg"
-        alt="logo"
-        height={collapsed ? 32 : 36}
-        width={collapsed ? 32 : 36}
-        preview={false}
-        style={{ transition: 'all 0.2s' }}
-      />
+      <div
+        style={{
+          width: 38,
+          height: 38,
+          borderRadius: 10,
+          background: 'rgba(255, 255, 255, 0.9)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          padding: 6,
+        }}
+      >
+        <img
+          src={logoIcon}
+          alt="ViteDash"
+          width={26}
+          height={26}
+          style={{ display: 'block' }}
+        />
+      </div>
       {!collapsed && (
-        <Title
-          level={5}
-          style={{
-            color: 'white',
-            margin: 0,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-          }}
-        >
-          Admin Panel
-        </Title>
+        <span style={{ fontSize: 18, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+          <span style={{ fontWeight: 700, color: '#fff' }}>Vite</span>
+          <span style={{ fontWeight: 400, color: 'rgba(255, 255, 255, 0.75)' }}>Dash</span>
+        </span>
       )}
     </div>
   );

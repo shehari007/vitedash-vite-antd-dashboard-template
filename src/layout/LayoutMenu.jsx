@@ -1,13 +1,14 @@
-import React from 'react';
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import {
   HomeOutlined,
-  DashboardOutlined,
   FileOutlined,
   SettingOutlined,
   UserOutlined,
-  AppstoreOutlined,
+  TableOutlined,
+  FormOutlined,
+  BarChartOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 
 const LayoutMenu = ({ onItemClick }) => {
@@ -17,55 +18,62 @@ const LayoutMenu = ({ onItemClick }) => {
 
   const items = [
     {
-      key: 'home',
-      icon: <HomeOutlined />,
-      label: <Link to="/dashboard/home">Dashboard</Link>,
+      type: 'group',
+      label: 'Overview',
+      children: [
+        {
+          key: 'home',
+          icon: <HomeOutlined style={{ color: '#69b1ff' }} />,
+          label: <Link to="/dashboard/home">Dashboard</Link>,
+        },
+        {
+          key: 'analytics',
+          icon: <BarChartOutlined style={{ color: '#69b1ff' }} />,
+          label: <Link to="/dashboard/analytics">Analytics</Link>,
+        },
+      ],
     },
     {
-      key: 'pages',
-      icon: <AppstoreOutlined />,
+      type: 'group',
+      label: 'Management',
+      children: [
+        {
+          key: 'users',
+          icon: <TeamOutlined style={{ color: '#95de64' }} />,
+          label: <Link to="/dashboard/users">Users</Link>,
+        },
+        {
+          key: 'tables',
+          icon: <TableOutlined style={{ color: '#95de64' }} />,
+          label: <Link to="/dashboard/tables">Projects</Link>,
+        },
+      ],
+    },
+    {
+      type: 'group',
       label: 'Pages',
       children: [
+        {
+          key: 'forms',
+          icon: <FormOutlined />,
+          label: <Link to="/dashboard/forms">Forms</Link>,
+        },
+        {
+          key: 'profile',
+          icon: <UserOutlined />,
+          label: <Link to="/dashboard/profile">Profile</Link>,
+        },
+        {
+          key: 'settings',
+          icon: <SettingOutlined />,
+          label: <Link to="/dashboard/settings">Settings</Link>,
+        },
         {
           key: 'blank',
           icon: <FileOutlined />,
           label: <Link to="/dashboard/blank">Blank Page</Link>,
         },
       ],
-    },
-    {
-      key: 'components',
-      icon: <DashboardOutlined />,
-      label: 'Components',
-      children: [
-        {
-          key: 'tables',
-          label: 'Tables',
-          disabled: true,
-        },
-        {
-          key: 'forms',
-          label: 'Forms',
-          disabled: true,
-        },
-        {
-          key: 'charts',
-          label: 'Charts',
-          disabled: true,
-        },
-      ],
-    },
-    {
-      key: 'users',
-      icon: <UserOutlined />,
-      label: 'Users',
-      disabled: true,
-    },
-    {
-      key: 'settings',
-      icon: <SettingOutlined />,
-      label: 'Settings',
-      disabled: true,
     },
   ];
 
@@ -75,7 +83,6 @@ const LayoutMenu = ({ onItemClick }) => {
       mode="inline"
       items={items}
       selectedKeys={[selectedMenu]}
-      defaultOpenKeys={['pages']}
       onClick={onItemClick}
       style={{ borderRight: 0 }}
     />

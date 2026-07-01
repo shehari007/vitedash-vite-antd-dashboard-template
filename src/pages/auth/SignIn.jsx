@@ -1,169 +1,106 @@
-import React from 'react';
-import {
-  Flex,
-  Input,
-  Form,
-  Button,
-  Card,
-  Space,
-  Image,
-  Typography,
-  Divider,
-  Checkbox,
-  Grid,
-} from 'antd';
-import {
-  MailOutlined,
-  LockOutlined,
-  GoogleOutlined,
-  GithubOutlined,
-} from '@ant-design/icons';
+import { Flex, Input, Form, Button, Space, Typography, Divider, Checkbox, Alert, theme } from 'antd';
+import { MailOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from '@ant-design/icons';
+import { Link as RouterLink } from 'react-router-dom';
+import AuthLayout from '../../layout/AuthLayout';
 import handleSignIn from '../../Utils/Auth/SignIn';
 
-const { Title, Text, Link } = Typography;
-const { useBreakpoint } = Grid;
+const { Text } = Typography;
 
 const SignIn = () => {
-  const screens = useBreakpoint();
-  const isMobile = !screens.sm;
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
 
   const handleOnSubmit = async (values) => {
-    console.log('Received values of form: ', values);
     await handleSignIn(values);
   };
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: isMobile ? 16 : 24,
-      }}
+    <AuthLayout
+      eyebrow="Welcome back"
+      title="Sign in to your account"
+      subtitle="Enter your credentials to access the dashboard."
     >
-      <Card
-        style={{
-          width: '100%',
-          maxWidth: 420,
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
-          borderRadius: 12,
-        }}
-      >
-        <Space
-          direction="vertical"
-          size="middle"
-          style={{ width: '100%', textAlign: 'center' }}
+      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        <Alert
+          type="info"
+          showIcon
+          message="Demo login is already filled in below. Click Sign In to continue."
+          style={{ fontSize: 13 }}
+        />
+
+        <Form
+          onFinish={handleOnSubmit}
+          layout="vertical"
+          style={{ width: '100%' }}
+          initialValues={{ remember: true, email: 'admin@vitedash.com', password: 'password123' }}
         >
-          <div>
-            <Image
-              src="/vite.svg"
-              height={60}
-              width={60}
-              preview={false}
-              alt="logo"
-            />
-            <Title level={3} style={{ marginTop: 16, marginBottom: 4 }}>
-              Welcome Back
-            </Title>
-            <Text type="secondary">Sign in to continue to your dashboard</Text>
-          </div>
-
-          <Form
-            onFinish={handleOnSubmit}
-            layout="vertical"
-            style={{ width: '100%', marginTop: 8 }}
-            initialValues={{ remember: true }}
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: 'Please enter your email!' },
+              { type: 'email', message: 'Please enter a valid email!' },
+            ]}
           >
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please enter your email!',
-                },
-                {
-                  type: 'email',
-                  message: 'Please enter a valid email!',
-                },
-              ]}
-            >
-              <Input
-                prefix={<MailOutlined style={{ color: '#bfbfbf' }} />}
-                placeholder="Email address"
-                size="large"
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please enter your password!',
-                },
-              ]}
-            >
-              <Input.Password
-                prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
-                placeholder="Password"
-                size="large"
-              />
-            </Form.Item>
-
-            <Form.Item>
-              <Flex justify="space-between" align="center">
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-                <Link>Forgot password?</Link>
-              </Flex>
-            </Form.Item>
-
-            <Form.Item style={{ marginBottom: 12 }}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                block
-                style={{ height: 45, fontWeight: 500 }}
-              >
-                Sign In
-              </Button>
-            </Form.Item>
-          </Form>
-
-          <Divider plain>
-            <Text type="secondary">or continue with</Text>
-          </Divider>
-
-          <Space size="middle">
-            <Button
-              icon={<GoogleOutlined />}
+            <Input
+              prefix={<MailOutlined style={{ color: '#bfbfbf' }} />}
+              placeholder="you@example.com"
               size="large"
-              style={{ width: 100 }}
-            >
-              Google
-            </Button>
-            <Button
-              icon={<GithubOutlined />}
-              size="large"
-              style={{ width: 100 }}
-            >
-              GitHub
-            </Button>
-          </Space>
+            />
+          </Form.Item>
 
-          <div style={{ marginTop: 16 }}>
-            <Text type="secondary">
-              Don't have an account?{' '}
-              <Link strong>Sign up now</Link>
-            </Text>
-          </div>
-        </Space>
-      </Card>
-    </div>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please enter your password!' }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
+              placeholder="Enter your password"
+              size="large"
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Flex justify="space-between" align="center">
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
+              </Form.Item>
+              <RouterLink to="/forgot-password" style={{ color: colorPrimary }}>
+                Forgot password?
+              </RouterLink>
+            </Flex>
+          </Form.Item>
+
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Button type="primary" htmlType="submit" size="large" block>
+              Sign In
+            </Button>
+          </Form.Item>
+        </Form>
+
+        <Divider plain style={{ margin: 0 }}>
+          <Text type="secondary">or continue with</Text>
+        </Divider>
+
+        <Flex gap="middle" style={{ width: '100%' }}>
+          <Button icon={<GoogleOutlined />} size="large" style={{ flex: 1 }}>
+            Google
+          </Button>
+          <Button icon={<GithubOutlined />} size="large" style={{ flex: 1 }}>
+            GitHub
+          </Button>
+        </Flex>
+
+        <Text type="secondary" style={{ textAlign: 'center', display: 'block' }}>
+          {"Don't have an account? "}
+          <RouterLink to="/signup" style={{ color: colorPrimary, fontWeight: 600 }}>
+            Sign up now
+          </RouterLink>
+        </Text>
+      </Space>
+    </AuthLayout>
   );
 };
 

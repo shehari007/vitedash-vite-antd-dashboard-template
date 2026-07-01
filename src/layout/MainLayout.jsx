@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Layout, theme, Grid } from 'antd';
 import LayoutFooter from './LayoutFooter';
 import LayoutHeader from './LayoutHeader';
@@ -7,27 +7,29 @@ import LayoutSidebar from './LayoutSidebar';
 const { Content } = Layout;
 const { useBreakpoint } = Grid;
 
+const getContentPadding = (screens) => {
+  if (screens.xl) return '32px 40px';
+  if (screens.md) return '24px 32px';
+  if (screens.sm) return '20px 24px';
+  return '16px';
+};
+
 const MainLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const screens = useBreakpoint();
   const isMobile = !screens.lg;
+  const siderCollapsed = isMobile || collapsed;
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgLayout },
   } = theme.useToken();
-
-  useEffect(() => {
-    if (isMobile) {
-      setCollapsed(true);
-    }
-  }, [isMobile]);
 
   const toggleSidebar = () => {
     if (isMobile) {
-      setMobileDrawerOpen(!mobileDrawerOpen);
+      setMobileDrawerOpen((open) => !open);
     } else {
-      setCollapsed(!collapsed);
+      setCollapsed((value) => !value);
     }
   };
 
@@ -38,7 +40,7 @@ const MainLayout = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <LayoutSidebar
-        collapsed={collapsed}
+        collapsed={siderCollapsed}
         isMobile={isMobile}
         mobileDrawerOpen={mobileDrawerOpen}
         onClose={closeMobileDrawer}
@@ -48,29 +50,24 @@ const MainLayout = ({ children }) => {
           marginLeft: isMobile ? 0 : collapsed ? 80 : 200,
           transition: 'margin-left 0.2s',
           overflow: 'auto',
+          background: colorBgLayout,
         }}
       >
         <LayoutHeader
-          collapsed={collapsed}
+          collapsed={siderCollapsed}
           toggleSidebar={toggleSidebar}
           isMobile={isMobile}
         />
         <Content
           style={{
-            margin: isMobile ? '16px 8px 0' : '24px 16px 0',
+            padding: getContentPadding(screens),
             flex: '1 0 auto',
+            width: '100%',
+            maxWidth: 1800,
+            margin: '0 auto',
           }}
         >
-          <div
-            style={{
-              padding: isMobile ? 16 : 24,
-              minHeight: '100%',
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            {children}
-          </div>
+          {children}
         </Content>
         <LayoutFooter />
       </Layout>
