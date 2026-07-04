@@ -9,7 +9,19 @@ import {
   FormOutlined,
   BarChartOutlined,
   TeamOutlined,
+  SafetyOutlined,
+  LoginOutlined,
+  UserAddOutlined,
+  KeyOutlined,
+  ExportOutlined,
 } from '@ant-design/icons';
+
+const ExternalLink = ({ to, children }) => (
+  <a href={to} target="_blank" rel="noreferrer">
+    {children}
+    <ExportOutlined style={{ fontSize: 11, marginLeft: 6, opacity: 0.65 }} />
+  </a>
+);
 
 const LayoutMenu = ({ onItemClick }) => {
   const location = useLocation();
@@ -72,6 +84,28 @@ const LayoutMenu = ({ onItemClick }) => {
           key: 'blank',
           icon: <FileOutlined />,
           label: <Link to="/dashboard/blank">Blank Page</Link>,
+        },
+        {
+          key: 'auth-pages',
+          icon: <SafetyOutlined style={{ color: '#ffa940' }} />,
+          label: 'Auth Pages',
+          children: [
+            {
+              key: 'signin',
+              icon: <LoginOutlined />,
+              label: <ExternalLink to="/signin">Sign In</ExternalLink>,
+            },
+            {
+              key: 'signup',
+              icon: <UserAddOutlined />,
+              label: <ExternalLink to="/signup">Sign Up</ExternalLink>,
+            },
+            {
+              key: 'forgot-password',
+              icon: <KeyOutlined />,
+              label: <ExternalLink to="/forgot-password">Forgot Password</ExternalLink>,
+            },
+          ],
         },
       ],
     },

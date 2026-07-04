@@ -1,5 +1,5 @@
-import { Flex, Input, Form, Button, Space, Typography, Divider, Checkbox, Alert, theme } from 'antd';
-import { MailOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from '@ant-design/icons';
+import { Flex, Input, Form, Button, Space, Typography, Checkbox, theme } from 'antd';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import AuthLayout from '../../layout/AuthLayout';
 import handleSignIn from '../../Utils/Auth/SignIn';
@@ -22,18 +22,11 @@ const SignIn = () => {
       subtitle="Enter your credentials to access the dashboard."
     >
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        <Alert
-          type="info"
-          showIcon
-          message="Demo login is already filled in below. Click Sign In to continue."
-          style={{ fontSize: 13 }}
-        />
-
         <Form
           onFinish={handleOnSubmit}
           layout="vertical"
           style={{ width: '100%' }}
-          initialValues={{ remember: true, email: 'admin@vitedash.com', password: 'password123' }}
+          initialValues={{ remember: true }}
         >
           <Form.Item
             label="Email"
@@ -79,19 +72,6 @@ const SignIn = () => {
             </Button>
           </Form.Item>
         </Form>
-
-        <Divider plain style={{ margin: 0 }}>
-          <Text type="secondary">or continue with</Text>
-        </Divider>
-
-        <Flex gap="middle" style={{ width: '100%' }}>
-          <Button icon={<GoogleOutlined />} size="large" style={{ flex: 1 }}>
-            Google
-          </Button>
-          <Button icon={<GithubOutlined />} size="large" style={{ flex: 1 }}>
-            GitHub
-          </Button>
-        </Flex>
 
         <Text type="secondary" style={{ textAlign: 'center', display: 'block' }}>
           {"Don't have an account? "}
