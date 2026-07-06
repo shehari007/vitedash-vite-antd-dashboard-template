@@ -11,6 +11,14 @@ import Settings from './pages/settings/Settings';
 import Forms from './pages/forms/Forms';
 import Tables from './pages/tables/Tables';
 import Analytics from './pages/analytics/Analytics';
+import Calendar from './pages/calendar/Calendar';
+import Kanban from './pages/kanban/Kanban';
+import Invoices from './pages/invoices/Invoices';
+import Pricing from './pages/pricing/Pricing';
+import Chat from './pages/chat/Chat';
+import FAQ from './pages/faq/FAQ';
+import NotFound from './pages/not-found/NotFound';
+import ErrorPage from './pages/errors/ErrorPage';
 
 const App = () => (
   <BrowserRouter>
@@ -28,7 +36,34 @@ const App = () => (
         <Route path="users" element={<Users />} />
         <Route path="profile" element={<Profile />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="calendar" element={<Calendar />} />
+        <Route path="kanban" element={<Kanban />} />
+        <Route path="invoices" element={<Invoices />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="chat" element={<Chat />} />
+        <Route path="faq" element={<FAQ />} />
+        <Route
+          path="errors/400"
+          element={
+            <ErrorPage status="warning" title="400" subTitle="Bad Request. The server could not understand your request." />
+          }
+        />
+        <Route
+          path="errors/403"
+          element={
+            <ErrorPage status="403" title="403" subTitle="Sorry, you are not authorized to access this page." />
+          }
+        />
+        <Route
+          path="errors/404"
+          element={<ErrorPage status="404" title="404" subTitle="Sorry, the page you visited does not exist." />}
+        />
+        <Route
+          path="errors/500"
+          element={<ErrorPage status="500" title="500" subTitle="Sorry, something went wrong on our server." />}
+        />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 );

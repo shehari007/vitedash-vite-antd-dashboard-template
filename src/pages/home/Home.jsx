@@ -139,9 +139,9 @@ const Home = () => {
 
       <SectionLabel style={{ marginTop: 0 }}>Overview</SectionLabel>
 
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} align="stretch">
         <Col xs={24} sm={12} lg={6}>
-          <Card hoverable>
+          <Card hoverable style={{ height: '100%' }}>
             <Statistic
               title="Total Users"
               value={2847}
@@ -156,7 +156,7 @@ const Home = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card hoverable>
+          <Card hoverable style={{ height: '100%' }}>
             <Statistic
               title="Total Orders"
               value={1254}
@@ -171,7 +171,7 @@ const Home = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card hoverable>
+          <Card hoverable style={{ height: '100%' }}>
             <Statistic
               title="Revenue"
               value={48520}
@@ -187,7 +187,7 @@ const Home = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card hoverable>
+          <Card hoverable style={{ height: '100%' }}>
             <Statistic
               title="Growth"
               value={23.5}
@@ -202,9 +202,9 @@ const Home = () => {
 
       <SectionLabel>System Health</SectionLabel>
 
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} align="stretch">
         <Col xs={24} sm={8}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Space align="center" size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
               <Space direction="vertical" size={0}>
                 <Text type="secondary">Server Load</Text>
@@ -223,7 +223,7 @@ const Home = () => {
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Space align="center" size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
               <Space direction="vertical" size={0}>
                 <Text type="secondary">Storage Used</Text>
@@ -242,7 +242,7 @@ const Home = () => {
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Space align="center" size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
               <Space direction="vertical" size={0}>
                 <Text type="secondary">API Uptime</Text>
@@ -264,9 +264,9 @@ const Home = () => {
 
       <SectionLabel>Orders and Activity</SectionLabel>
 
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} align="stretch">
         <Col xs={24} lg={16}>
-          <Card title="Recent Orders" extra={<a href="#recent-orders">View All</a>}>
+          <Card title="Recent Orders" extra={<a href="#recent-orders">View All</a>} style={{ height: '100%' }}>
             <Table
               columns={orderColumns}
               dataSource={recentOrders}
@@ -297,9 +297,9 @@ const Home = () => {
 
       <SectionLabel>Team and Schedule</SectionLabel>
 
-      <Row gutter={[16, 16]}>
-        <Col xs={24} lg={8}>
-          <Card title={<Space><TeamOutlined /> Team Performance</Space>}>
+      <Row gutter={[16, 16]} align="stretch">
+        <Col xs={24} md={12} lg={8}>
+          <Card title={<Space><TeamOutlined /> Team Performance</Space>} style={{ height: '100%' }}>
             <List
               itemLayout="horizontal"
               dataSource={teamMembers}
@@ -316,8 +316,8 @@ const Home = () => {
             />
           </Card>
         </Col>
-        <Col xs={24} lg={8}>
-          <Card title="Task Progress">
+        <Col xs={24} md={12} lg={8}>
+          <Card title="Task Progress" style={{ height: '100%' }}>
             <List
               itemLayout="vertical"
               dataSource={taskList}
@@ -337,8 +337,8 @@ const Home = () => {
             />
           </Card>
         </Col>
-        <Col xs={24} lg={8}>
-          <Card title="Schedule" styles={{ body: { padding: '0 12px 12px' } }}>
+        <Col xs={24} md={24} lg={8}>
+          <Card title="Schedule" style={{ height: '100%' }} styles={{ body: { padding: '0 12px 12px' } }}>
             <Calendar fullscreen={false} />
           </Card>
         </Col>

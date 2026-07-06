@@ -1,6 +1,7 @@
-import { Layout, Typography, Space, Button, Tooltip, theme } from 'antd';
+import { Layout, Typography, Space, Button, Tag, Tooltip, theme } from 'antd';
 import { GithubOutlined, MailOutlined, ReadOutlined } from '@ant-design/icons';
 import logoIcon from '../assets/logo/logo-icon.png';
+import { APP_VERSION } from '../config/appInfo';
 
 const { Footer } = Layout;
 const { Text } = Typography;
@@ -54,6 +55,7 @@ const LayoutFooter = () => {
         <Text type="secondary" style={{ fontSize: 12 }}>
           © {new Date().getFullYear()} ViteDash. Built by Muhammad Sheharyar Butt.
         </Text>
+        <Tag style={{ fontSize: 11, marginInlineStart: 4 }}>v{APP_VERSION}</Tag>
       </Space>
 
       <Space size={4}>

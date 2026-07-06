@@ -49,6 +49,7 @@ const MainLayout = ({ children }) => {
         style={{
           marginLeft: isMobile ? 0 : collapsed ? 80 : 200,
           transition: 'margin-left 0.2s',
+          height: '100vh',
           overflow: 'auto',
           background: colorBgLayout,
         }}
@@ -65,9 +66,11 @@ const MainLayout = ({ children }) => {
             width: '100%',
             maxWidth: 1800,
             margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          {children}
+          <div style={{ flex: '1 1 auto', minHeight: 0 }}>{children}</div>
         </Content>
         <LayoutFooter />
       </Layout>
